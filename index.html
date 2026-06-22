@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aveno Café &amp; Events — Chandipur, Purba Medinapur</title>
+<meta name="description" content="Aveno Café & Events — a private, theme-based celebration space in Chandipur, Purba Medinapur. We Value Your Time. We Create Your Moments.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#11151c;
+    --bg-soft:#161b24;
+    --panel:#1b212c;
+    --copper:#cdb888;
+    --copper-light:#e8d9b5;
+    --copper-deep:#9c8a62;
+    --cream:#f1ede3;
+    --silver:#94a0b0;
+    --line: rgba(205,184,136,0.20);
+    --radius: 2px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--cream);
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  /* texture overlay */
+  .texture{
+    position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 3px);
+    opacity:0.5;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(15,14,13,0.78);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:padding .3s ease;
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 32px;max-width:1180px;margin:0 auto;
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand img{height:34px;width:auto;filter:drop-shadow(0 0 6px rgba(205,184,136,0.25));}
+  .brand-text{font-family:'Cormorant Garamond',serif;font-size:20px;letter-spacing:0.08em;color:var(--copper-light);}
+  nav ul{list-style:none;display:flex;gap:38px;}
+  nav a{
+    font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:var(--silver);
+    position:relative;padding-bottom:4px;transition:color .25s ease;
+  }
+  nav a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--copper);
+    transition:width .3s ease;
+  }
+  nav a:hover{color:var(--copper-light);}
+  nav a:hover::after{width:100%;}
+  .nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .nav-toggle span{width:24px;height:1px;background:var(--copper-light);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;position:relative;
+    padding:160px 24px 100px;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 18%, rgba(205,184,136,0.09), transparent 60%),
+      linear-gradient(180deg, #0d1117 0%, #11151c 60%, #161c25 100%);
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(125deg, transparent 40%, rgba(205,184,136,0.045) 50%, transparent 60%);
+    background-size:200% 200%;
+    animation: sheen 9s ease-in-out infinite;
+  }
+  @keyframes sheen{
+    0%,100%{background-position:0% 0%;}
+    50%{background-position:100% 100%;}
+  }
+  .hero-logo{
+    width:min(520px, 78vw);
+    margin:0 auto 6px;
+    opacity:0;
+    animation: rise 1.4s cubic-bezier(.16,.8,.3,1) forwards;
+  }
+  .hero-tagline{
+    font-family:'Jost',sans-serif;font-weight:300;
+    font-size:clamp(13px,1.6vw,16px);
+    letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--silver);
+    margin-top:18px;
+    opacity:0;
+    animation: rise 1.4s cubic-bezier(.16,.8,.3,1) 0.35s forwards;
+  }
+  .hero-sub{
+    max-width:560px;margin:34px auto 0;
+    color:var(--cream);opacity:0;font-size:17px;font-weight:300;
+    animation: rise 1.4s cubic-bezier(.16,.8,.3,1) 0.55s forwards;
+  }
+  .hero-cta{
+    margin-top:46px;display:flex;gap:20px;flex-wrap:wrap;justify-content:center;
+    opacity:0;animation: rise 1.4s cubic-bezier(.16,.8,.3,1) 0.75s forwards;
+  }
+  @keyframes rise{
+    from{opacity:0;transform:translateY(22px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  .btn{
+    display:inline-block;padding:14px 34px;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;
+    border:1px solid var(--copper);color:var(--copper-light);transition:all .35s ease;
+  }
+  .btn:hover{background:var(--copper);color:#11151c;}
+  .btn.solid{background:var(--copper);color:#11151c;}
+  .btn.solid:hover{background:var(--copper-light);}
+
+  .scroll-cue{
+    position:absolute;bottom:38px;left:50%;transform:translateX(-50%);
+    width:1px;height:50px;background:linear-gradient(var(--copper), transparent);
+    opacity:0.6;
+  }
+  .scroll-cue::after{
+    content:"";position:absolute;top:0;left:-2px;width:5px;height:5px;border-radius:50%;
+    background:var(--copper-light);
+    animation: drip 2.2s ease-in-out infinite;
+  }
+  @keyframes drip{
+    0%{top:0;opacity:1;} 90%{opacity:0;} 100%{top:50px;opacity:0;}
+  }
+
+  /* ---------- SECTION COMMON ---------- */
+  section{position:relative;z-index:1;padding:130px 0;}
+  .eyebrow{
+    display:flex;align-items:center;gap:14px;
+    font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:var(--copper);
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:30px;height:1px;background:var(--copper);}
+  .sec-title{font-size:clamp(30px,4vw,46px);color:var(--cream);max-width:680px;}
+  .sec-title em{font-style:normal;color:var(--copper-light);}
+
+  /* ---------- ABOUT ---------- */
+  .about{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .about-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:80px;align-items:start;}
+  .about p{color:var(--silver);font-size:16px;margin-top:18px;max-width:540px;}
+  .founders{margin-top:48px;display:flex;flex-direction:column;gap:26px;}
+  .founder{
+    display:flex;gap:18px;align-items:flex-start;
+    padding:22px 24px;border:1px solid var(--line);background:rgba(205,184,136,0.03);
+  }
+  .founder-mark{
+    font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--copper);
+    width:46px;height:46px;border:1px solid var(--copper-deep);display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .founder h3{font-size:19px;color:var(--cream);font-weight:600;}
+  .founder span.role{display:block;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--copper-light);margin:5px 0 8px;}
+  .founder p{margin:0;color:var(--silver);font-size:14.5px;max-width:none;}
+
+  /* ---------- SERVICES ---------- */
+  .services{background:var(--bg);}
+  .services-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:60px;}
+  .services-head p{color:var(--silver);max-width:380px;font-size:15px;}
+  .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .service-card{background:var(--bg);padding:40px 32px;transition:background .35s ease;}
+  .service-card:hover{background:var(--panel);}
+  .service-num{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--copper-deep);letter-spacing:0.1em;}
+  .service-card h3{font-size:23px;margin:18px 0 12px;color:var(--cream);}
+  .service-card p{font-size:14.5px;color:var(--silver);}
+  .tag{
+    display:inline-block;margin-top:16px;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--copper-light);border:1px solid var(--copper-deep);padding:5px 10px;
+  }
+
+  /* ---------- PRICING STRIP ---------- */
+  .pricing{
+    background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:70px 0;
+  }
+  .pricing .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:32px;}
+  .price-item{text-align:left;}
+  .price-item .amt{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--copper-light);}
+  .price-item .lbl{font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--silver);margin-top:6px;}
+  .price-divider{width:1px;height:50px;background:var(--line);}
+
+  /* ---------- GALLERY ---------- */
+  .gallery{background:var(--bg-soft);}
+  .gallery-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px;margin-top:50px;
+  }
+  .gallery-grid figure{position:relative;overflow:hidden;border:1px solid var(--line);}
+  .gallery-grid img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease, filter .5s ease;filter:grayscale(25%) brightness(0.85);}
+  .gallery-grid figure:hover img{transform:scale(1.08);filter:grayscale(0%) brightness(1);}
+  .gallery-grid figure::after{
+    content:attr(data-cap);position:absolute;left:0;right:0;bottom:0;padding:14px 16px;
+    font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream);
+    background:linear-gradient(0deg, rgba(0,0,0,0.75), transparent);
+    opacity:0;transition:opacity .4s ease;
+  }
+  .gallery-grid figure:hover::after{opacity:1;}
+  .g-big{grid-column:span 2;grid-row:span 2;}
+  .gallery-note{margin-top:26px;font-size:13px;color:var(--silver);}
+  .gallery-note span{color:var(--copper-light);}
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:var(--bg);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;}
+  .info-row{
+    display:flex;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);
+  }
+  .info-row .ico{
+    width:38px;height:38px;border:1px solid var(--copper-deep);flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:var(--copper-light);font-size:16px;
+  }
+  .info-row h4{font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--silver);margin-bottom:6px;}
+  .info-row p, .info-row a{font-size:16px;color:var(--cream);}
+  .info-row a:hover{color:var(--copper-light);}
+
+  .social-row{display:flex;gap:14px;margin-top:34px;}
+  .social-link{
+    width:44px;height:44px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+    font-size:13px;letter-spacing:0.05em;color:var(--silver);transition:all .3s ease;
+  }
+  .social-link:hover{border-color:var(--copper);color:var(--copper-light);}
+
+  form.cta-form{display:flex;flex-direction:column;gap:20px;}
+  .cta-form input,.cta-form select,.cta-form textarea{
+    background:transparent;border:none;border-bottom:1px solid var(--line);
+    color:var(--cream);font-family:'Jost',sans-serif;font-size:15px;padding:12px 2px;
+    outline:none;transition:border-color .3s ease;
+  }
+  .cta-form input::placeholder,.cta-form textarea::placeholder{color:#5e6a7c;}
+  .cta-form input:focus,.cta-form select:focus,.cta-form textarea:focus{border-color:var(--copper);}
+  .cta-form label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--copper);margin-bottom:-10px;}
+  .cta-form textarea{resize:vertical;min-height:90px;}
+  .form-note{font-size:12.5px;color:#5e6a7c;margin-top:4px;}
+
+  /* ---------- MAP / LOCATION STRIP ---------- */
+  .location-strip{
+    border-top:1px solid var(--line);background:var(--panel);
+    padding:60px 0;text-align:center;
+  }
+  .location-strip h3{font-size:24px;color:var(--copper-light);margin-bottom:10px;}
+  .location-strip p{color:var(--silver);font-size:15px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:#0c0f15;border-top:1px solid var(--line);padding:50px 0 30px;
+  }
+  .footer-grid{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:30px;}
+  .footer-brand{display:flex;align-items:center;gap:10px;}
+  .footer-brand img{height:26px;}
+  .footer-brand span{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--copper-light);letter-spacing:0.06em;}
+  .footer-tag{color:#5e6a7c;font-size:12.5px;margin-top:8px;letter-spacing:0.05em;}
+  .footer-links{display:flex;gap:30px;}
+  .footer-links a{font-size:12.5px;color:var(--silver);letter-spacing:0.08em;text-transform:uppercase;}
+  .footer-links a:hover{color:var(--copper-light);}
+  .footer-bottom{
+    margin-top:40px;padding-top:24px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    font-size:11.5px;color:#4a5566;letter-spacing:0.04em;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .about-grid{grid-template-columns:1fr;gap:50px;}
+    .service-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;gap:60px;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px;}
+    .g-big{grid-column:span 2;grid-row:span 1;}
+    nav ul{
+      position:fixed;top:64px;left:0;right:0;bottom:0;background:rgba(10,9,8,0.98);
+      flex-direction:column;align-items:center;justify-content:center;gap:34px;
+      transform:translateY(-110%);transition:transform .4s ease;
+    }
+    nav ul.open{transform:translateY(0);}
+    .nav-toggle{display:flex;}
+    .pricing .wrap{justify-content:flex-start;}
+    .price-divider{display:none;}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 20px;}
+    section{padding:90px 0;}
+    .gallery-grid{grid-template-columns:1fr;}
+    .g-big{grid-column:span 1;}
+    .footer-grid{flex-direction:column;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="texture"></div>
+
+<header>
+  <div class="nav">
+    <a href="#top" class="brand">
+      <img src="AVENO.png" alt="Aveno Café & Events logo">
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="navList">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <img class="hero-logo" src="AVENO.png" alt="Aveno Café & Events">
+    <p class="hero-tagline">We Value Your Time &nbsp;·&nbsp; We Create Your Moments</p>
+    <p class="hero-sub">A private, theme-based celebration space in Chandipur — built for the small gatherings that deserve a beautiful place of their own.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn solid">Reserve Your Moment</a>
+      <a href="#services" class="btn">Explore Aveno</a>
+    </div>
+    <div class="scroll-cue"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <div>
+        <div class="eyebrow">Our Story</div>
+        <h2 class="sec-title">A small room, built with a <em>big</em> idea.</h2>
+        <p>Aveno Café &amp; Events began with a simple observation: the most meaningful celebrations are often the smallest ones — a birthday with eight close friends, an evening watching the match together, a quiet proposal. Yet there was nowhere private, stylish, and affordable to host them.</p>
+        <p>So we built one. Rooted in Chandipur, Purba Medinapur, Aveno is a private hall designed entirely around small-group celebrations — decorated to theme, lit to mood, and reserved exclusively for you and your guests, hour by hour.</p>
+      </div>
+      <div class="founders">
+        <div class="founder">
+          <div class="founder-mark">SD</div>
+          <div>
+            <h3>Sandipan Das</h3>
+            <span class="role">Founder</span>
+            <p>The idea of Aveno belongs to Sandipan — built on the belief that small celebrations deserve a space of their own, not an afterthought in someone else's banquet hall.</p>
+          </div>
+        </div>
+        <div class="founder">
+          <div class="founder-mark">DD</div>
+          <div>
+            <h3>Dwaipayan Das</h3>
+            <span class="role">Co-Builder</span>
+            <p>Dwaipayan helped turn his elder brother's idea into reality — shaping the space, the systems, and the experience that bring Aveno to life every day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="wrap">
+      <div class="services-head">
+        <div>
+          <div class="eyebrow">What We Offer</div>
+          <h2 class="sec-title">Everything a small celebration needs — <em>nothing</em> it doesn't.</h2>
+        </div>
+        <p>A fully private hall, decorated to your theme, with sound included and food &amp; projector available on request.</p>
+      </div>
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-num">01</div>
+          <h3>Private Hall</h3>
+          <p>An air-conditioned room reserved exclusively for your group of 8–10 — no shared space, no compromise.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">02</div>
+          <h3>Theme Decoration</h3>
+          <p>Decorative lighting and seating styled to your occasion — birthdays, proposals, kitty parties, and more.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">03</div>
+          <h3>Sound, Included</h3>
+          <p>An in-house sound system comes standard with every booking, ready for music, speeches, or screenings.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">04</div>
+          <h3>Match &amp; Movie Screenings</h3>
+          <p>Add a projector to turn your booking into a private screening for matches, films, or slideshows.</p>
+          <span class="tag">Optional Add-on</span>
+        </div>
+        <div class="service-card">
+          <div class="service-num">05</div>
+          <h3>Food Service</h3>
+          <p>A curated food service, charged per person, for a complete, one-stop celebration experience.</p>
+          <span class="tag">Optional Add-on</span>
+        </div>
+        <div class="service-card">
+          <div class="service-num">06</div>
+          <h3>Flexible Booking</h3>
+          <p>Book by the hour or take the 3-hour package — celebrations on your schedule, not a venue's.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div class="wrap">
+      <div class="price-item">
+        <div class="amt">₹199<span style="font-size:16px;color:var(--silver);">/hr</span></div>
+        <div class="lbl">Hourly Booking</div>
+      </div>
+      <div class="price-divider"></div>
+      <div class="price-item">
+        <div class="amt">₹499<span style="font-size:16px;color:var(--silver);">/3hrs</span></div>
+        <div class="lbl">Celebration Package</div>
+      </div>
+      <div class="price-divider"></div>
+      <div class="price-item">
+        <div class="amt" style="font-size:24px;">+ Add-ons</div>
+        <div class="lbl">Food · Projector · Custom Theme</div>
+      </div>
+      <a href="#contact" class="btn">Book a Slot</a>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="wrap">
+      <div class="eyebrow">Moments at Aveno</div>
+      <h2 class="sec-title">Charming corners, made for <em>your</em> story.</h2>
+      <div class="gallery-grid">
+        <figure class="g-big" data-cap="Warm, intimate ambience">
+          <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=1200&auto=format&fit=crop" alt="Warm fairy-lit table setting" loading="lazy">
+        </figure>
+        <figure data-cap="Theme decor">
+          <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?q=80&w=800&auto=format&fit=crop" alt="Decorated celebration table" loading="lazy">
+        </figure>
+        <figure data-cap="Evening glow">
+          <img src="https://images.unsplash.com/photo-1481162854517-d9e353af153d?q=80&w=800&auto=format&fit=crop" alt="Warm evening lighting" loading="lazy">
+        </figure>
+        <figure data-cap="Celebration setup">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop" alt="Birthday celebration setup" loading="lazy">
+        </figure>
+        <figure data-cap="Close friends, closer space">
+          <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=800&auto=format&fit=crop" alt="Friends celebrating together" loading="lazy">
+        </figure>
+        <figure data-cap="Detail in every corner">
+          <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=800&auto=format&fit=crop" alt="Decoration detail" loading="lazy">
+        </figure>
+      </div>
+      <p class="gallery-note">Shown here for reference — <span>real photographs of the Aveno hall and your celebrations</span> will replace this gallery soon.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <div class="eyebrow">Get In Touch</div>
+        <h2 class="sec-title">Let's plan your <em>moment</em>.</h2>
+
+        <div class="info-row">
+          <div class="ico">☎</div>
+          <div>
+            <h4>Call / WhatsApp</h4>
+            <a href="tel:+918001692123">+91 80016 92123</a>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ico">⚲</div>
+          <div>
+            <h4>Location</h4>
+            <p>Chandipur, Purba Medinapur<br>West Bengal — 721659</p>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ico">✦</div>
+          <div>
+            <h4>Hours</h4>
+            <p>Open daily — by appointment &amp; walk-in booking</p>
+          </div>
+        </div>
+
+        <div class="social-row">
+          <a class="social-link" href="#" aria-label="Instagram">IG</a>
+          <a class="social-link" href="#" aria-label="Facebook">FB</a>
+          <a class="social-link" href="#" aria-label="WhatsApp">WA</a>
+        </div>
+        <p class="form-note" style="margin-top:14px;">Social links coming soon — placeholders shown above.</p>
+      </div>
+
+      <div>
+        <form class="cta-form" action="#" method="post">
+          <div>
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Full name" required>
+          </div>
+          <div>
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" required>
+          </div>
+          <div>
+            <label for="occasion">Occasion</label>
+            <input type="text" id="occasion" name="occasion" placeholder="Birthday, proposal, match screening...">
+          </div>
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Preferred date, time, and guest count"></textarea>
+          </div>
+          <button type="submit" class="btn solid" style="align-self:flex-start;border:none;cursor:pointer;">Send Enquiry</button>
+          <p class="form-note">This form is a template — connect it to your email or WhatsApp number to start receiving enquiries.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div class="location-strip">
+    <h3>Aveno Café &amp; Events</h3>
+    <p>Chandipur · Purba Medinapur · West Bengal · 721659</p>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="AVENO.png" alt="Aveno logo">
+          <span>AVENO</span>
+        </div>
+        <p class="footer-tag">We Value Your Time. We Create Your Moments.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Aveno Café &amp; Events. Founded by Sandipan Das.</span>
+      <span>Chandipur, Purba Medinapur, West Bengal — 721659</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const list = document.getElementById('navList');
+  toggle.addEventListener('click', () => list.classList.toggle('open'));
+  list.querySelectorAll('a').forEach(a => a.addEventListener('click', () => list.classList.remove('open')));
+</script>
+
+</body>
+</html>
